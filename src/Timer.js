@@ -6,21 +6,25 @@ export function Timer(props) {
         name: "",
         zone: ""
     })
+
     const [state, setState] = useState([])
+
     const submitHandler = evt => {
         evt.preventDefault()
-        console.log("ffff")
         addResult({name: form.name, zone: form.zone})
         clearForm()
     }
+
     const clearForm = ()=> {
         setForm({name: "", zone: ""})
     }
+
     const addResult = (res) => {
         let newResult = state
         newResult.push(res)
         setState(newResult)
     }
+
     const deleteResult = (resIndex) => {
         let newResult = []
         state.forEach((elem, i) => {
@@ -30,30 +34,25 @@ export function Timer(props) {
         })
         setState(newResult)
     }
-    const nameHandler = evt => {
+
+    const changeHandler = evt => {
         evt.persist()
+        const name = evt.target.name
        setForm(prev => {
            return {
            ...prev,
-           name: evt.target.value}
+           [name]: evt.target.value}
        })
     }
-    const zoneHandler = evt => {
-        evt.persist()
-        setForm(prev => {
-            return {
-                ...prev,
-                zone: evt.target.value}
-        })
-    }
-    ///
+
+
     return (
         <>
         <form onSubmit={submitHandler}>
             <label htmlFor="name">Название</label>
-            <input id="name" name="name" value={form.name} onChange={nameHandler}/>
+            <input id="name" name="name" value={form.name} onChange={changeHandler}/>
             <label htmlFor="zone">Временная зона</label>
-            <input id="zone" name="zone" value={form.zone} onChange={zoneHandler}/>
+            <input id="zone" name="zone" value={form.zone} onChange={changeHandler}/>
             <button type="submit">Добавить</button>
         </form>
             <TimerList results={state} deleteHandler={deleteResult}/>
