@@ -45,7 +45,6 @@ export function Timer(props) {
        })
     }
 
-
     return (
         <>
         <form onSubmit={submitHandler}>
