@@ -3,7 +3,7 @@ const moment = require('moment')
 moment().format()
 
 export function TimerList (props){
-    const [date, setDate] = useState()
+    const [date, setDate] = useState(moment())
 
     useEffect(()=> {
         const intervalId = setInterval(()=> setDate(
@@ -20,10 +20,11 @@ export function TimerList (props){
             {props.results.map((result,i)=>
                 <div key={i}>
                 <span className="model">{result.name}</span>
-                <span className="model">{(date.utcOffset(result.zone)).format('HH:mm:ss')}</span>
+                <span className="model">{(date.utcOffset(Number(result.zone))).format('HH:mm:ss')}</span>
                 <span className="model" onClick = {(e)=>
                     props.deleteHandler(i)}>&times;</span>
                 </div>)}
         </>
     )
 }
+
